@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+{% if products.count() %}
+<center><h3>Каталог товаров</h3></center>
+<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    {% for item in products %}
+    <div class="col-4">
+        <div class="card mb-4 rounded-3 shadow-sm">
+
+            <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">{{ item.title }}</h4>
+            </div>
+
+            <div class="card-body">
+                <h1 class="card-title pricing-card-title">{{ item.price }}<small
+                        class="text-muted fw-light">₽</small></h1>
+
+                <ul class="list-unstyled mt-3 mb-4">
+                    <li>{{ item.content }}</li>
+                </ul>
+
+                {% if item.product_img %}
+                <img src="{{item.product_img}}" width="200" height="200">
+                {% endif %}
+
+                <a class="w-100 btn btn-lg btn-success" href="/purchase?product_id={{ item.id }}"
+                   role="button">Купить</a>
+                {% if current_user.is_authenticated and current_user == item.user and
+                current_user.is_admin %}
+                <div>
+                    <a href="/products/{{ item.id }}" class="w-49 btn btn-sm btn btn-warning">
+                        Изменить
+                    </a>
+
+                    <a href="/products_delete/{{ item.id }}" class="w-49 btn btn-sm btn btn-danger">
+                        Удалить
+                    </a>
+
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<center><h3>Товары отсутствуют</h3></center>
+{% endif %}
+{% endblock %}

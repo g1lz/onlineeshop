@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Авторизация{% endblock %}
+
+{% block content %}
+<center><h3>Авторизация</h3></center>
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+
+    <p>
+        {{ form.username.label }}<br>
+        {{ form.username(class="form-control") }}<br>
+        {% for error in form.username.errors %}
+
+        {% if message %}
+    <div class="alert alert-danger" role="alert">
+        <center>{{message}}</center>
+    </div>
+    {% endif %}
+
+    {% endfor %}
+
+    <p>
+        {{ form.password.label }}<br>
+        {{ form.password(class="form-control", type="password") }}<br>
+        {% for error in form.password.errors %}
+
+        {% if message %}
+    <div class="alert alert-danger" role="alert">
+        <center>{{message}}</center>
+    </div>
+    {% endif %}
+
+    {% endfor %}
+
+    <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+    <center><p>{{ form.submit(type="submit", class="btn btn-success btn-lg") }}</p></center>
+
+    {% if message %}
+    <div class="alert alert-danger" role="alert">
+        <center>{{message}}</center>
+    </div>
+    {% endif %}
+
+</form>
+{% endblock %}

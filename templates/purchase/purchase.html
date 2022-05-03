@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Оформление заказа{% endblock %}
+
+{% block content %}
+<center><h3>Оформление заказа</h3></center>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+
+    <p>
+        {{ form.receiver_name.label }}<br>
+        {{ form.receiver_name(class="form-control") }}<br>
+        {% for error in form.receiver_name.errors %}
+    <p class="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+
+    <p>
+        {{ form.address.label }}<br>
+        {{ form.address(class="form-control") }}<br>
+        {% for error in form.address.errors %}
+    <p content="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+
+    <center><p>{{ form.submit(type="submit", class="btn btn-success btn-lg") }}</p></center>
+    {{message}}
+
+</form>
+{% endblock %}
